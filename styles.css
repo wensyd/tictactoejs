@@ -22,6 +22,7 @@ body {
   justify-items: center;
   align-items: center;
   grid-template-columns: repeat(3, auto);
+  margin: 0%;
 }
 
 .cell {
@@ -63,19 +64,108 @@ body {
   border-bottom: none;
 }
 
-.cell.x::before,
-.cell.x::after {
-  content: '';
-  width:calc(var(--mark-size) * .15);
-  height: var(--mark-size);
-  background-color: black;
+/* cursor not allowed when x or circle in cell */
+.cell.x,
+.cell.circle{
+  cursor: not-allowed;
 }
 
-.cell.x::before{
+/* color of x */
+.cell.x::before,
+.cell.x::after {
+  background-color: purple;
+}
+
+/* color of x */
+.cell.circle::before {
+  background-color: purple;
+}
+/* creates the hover effect when the board is either set to x or circle */
+
+.board.x .cell:not(.x):not(.circle).cell:hover::before,
+.board.x .cell:not(.x):not(.circle).cell:hover::after,
+.board.circle .cell:not(.x):not(.circle).cell:hover::before {
+  background-color: lightgrey;
+}
+
+
+/* creates the X */
+
+.cell.x::before,
+.cell.x::after ,
+.board.x .cell:not(.x):not(.circle).cell:hover::before,
+.board.x .cell:not(.x):not(.circle).cell:hover::after {
+  content: '';
+  position: absolute;
+  width:calc(var(--mark-size) * .15);
+  height: var(--mark-size);
+}
+
+
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle).cell:hover::before {
   transform: rotate(45deg);
 }
 
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle).cell:hover::after {
+  transform: rotate(-45deg);
+}
 
 
+/* creates the circle */
 
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle).cell:hover::before,
+.board.circle .cell:not(.x):not(.circle).cell:hover::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
 
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle).cell:hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+
+  
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle).cell:hover::after {
+  width: calc(var(--mark-size) * .7);
+  height: calc(var(--mark-size) * .7);
+  background-color: white;
+  
+}
+
+.winning-msg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0 , 0, .9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  flex-direction: column;
+}
+
+.winning-msg button{
+  font-size: 3rem;
+  background-color: white;
+  border: 1px;
+  padding: .25em .5em;
+  cursor: pointer;
+}
+
+.winning-msg button:hover{
+  background-color: black;
+  color: white;
+  border-color: white;
+
+}
